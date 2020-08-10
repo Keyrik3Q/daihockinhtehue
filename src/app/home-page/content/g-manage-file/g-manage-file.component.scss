@@ -1,0 +1,121 @@
+.title-block {
+  background: #2bbbad;
+  color: #fff;
+  font-size: 18px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  padding-top: 11px;
+  padding-bottom: 11px;
+}
+.title-main {
+  p {
+    margin-bottom: 0px;
+    font-size: 15px;
+  }
+}
+// choose file
+.col-left {
+    margin-top: 20px;
+  }
+  .nav {
+    margin-left: 0px !important;
+    li {
+      a {
+        color: #fff;
+      }
+    }
+  }
+  .card-header > .nav .nav-link::before {
+    background: #00695c;
+    display: none;
+  }
+  .card-body {
+    padding: 5px 0px;
+  }
+  .card-header-tab.card-header {
+    background: #2bbbad;
+  }
+  ul.list-file {
+    padding-left: 0;
+    margin-bottom: 0px;
+    max-height: 470px;
+    overflow-x: auto;
+    overflow-y: auto;
+    margin-right: 0px;
+  
+    li {
+      a {
+        display: block;
+        padding: 5px 5px 5px 10px;
+        background: #f4fcff;
+        margin-bottom: 3px;
+        color: #000;
+        font-weight: 500;
+      }
+    }
+  }
+  .pd-0 {
+    padding: 0 !important;
+  }
+  // col-right
+  .thumb {
+    display: block;
+    width: 50%;
+    float: left;
+    img {
+      border: 1px solid #000;
+      width: 150px;
+      height: 95px;
+      object-fit: cover;
+    }
+  }
+  .button {
+    width: 50%;
+    float: left;
+    button {
+      display: block !important;
+      margin-bottom: 3px !important;
+      width: 100px;
+    }
+  }
+  .name-file {
+    color: #3f6ad8;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  
+  .block-upload {
+    input {
+      margin-left: 5px;
+    }
+    .title-upload {
+      color: #000;
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+  
+    .choose-file-block {
+      margin-bottom: 11px;
+      input[type="file"] {
+        margin-bottom: 5px;
+      }
+    }
+  
+    .choose-type-block {
+      margin-bottom: 11px;
+    }
+  
+    .process-file {
+      input {
+        margin-bottom: 5px;
+      }
+  
+      button {
+        width: 95px;
+        margin-top: 5px;
+        margin-left: 5px;
+      }
+    }
+  }
+  

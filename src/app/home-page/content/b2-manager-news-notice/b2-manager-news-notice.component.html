@@ -1,0 +1,382 @@
+<mat-card class="title-block">
+  <div class="row">
+    <div class="col-md-12 title-main">
+      <p>Quản trị tin tức - thông báo</p>
+    </div>
+  </div>
+</mat-card>
+
+<!-- select-top -->
+<mat-card class="system-custom">
+  <div class="row">
+    <div class="col-md-6">
+
+      <!-- Ngôn ngữ -->
+      <mat-form-field>
+        <mat-label>Ngôn Ngữ:</mat-label>
+        <mat-select [(ngModel)]="languageId">
+          <mat-option *ngFor="let language of languages" [value]="language.value">
+            {{ language.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+
+      <!-- Trạng thái -->
+      <mat-form-field>
+        <mat-label>Trạng Thái:</mat-label>
+        <mat-select [(ngModel)]="statusId">
+          <mat-option *ngFor="let statusItem of status" [value]="statusItem.value">
+            {{ statusItem.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+
+      <!-- Website -->
+      <mat-form-field>
+        <mat-label>Website:</mat-label>
+        <mat-select [(ngModel)]="websiteId" (selectionChange)="onComboboxWebsiteChange(false)">
+          <mat-option *ngFor="let website of websites" [value]="website.id">
+            {{ website.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-6 col-xs-12">
+
+      <!-- Tiêu đề -->
+      <mat-form-field class="example-full-width">
+        <mat-label>Tiêu Đề</mat-label>
+        <input [(ngModel)]="titleId" matInput placeholder="Nhập tiêu đề..." />
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+
+      <!-- Thể loại -->
+      <mat-form-field>
+        <mat-label>Thể loại:</mat-label>
+        <mat-select [(ngModel)]="categoryId">
+          <mat-option *ngFor="let category of categorys" [disabled]="category.ptypeid==0" [value]="category.id"
+            class="titlecategory">
+            {{ category.title }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-6 col-xs-12">
+
+      <!-- Sắp xếp -->
+      <mat-form-field>
+        <mat-label>Sắp xếp:</mat-label>
+        <mat-select [(ngModel)]="arrangeId">
+          <mat-option *ngFor="let arrange of arranges" [value]="arrange.value">
+            {{ arrange.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="example-button-row contain-button-filter">
+
+        <!-- Button Lọc -->
+        <button (click)="onFillterClick()" class="mb-2 mr-2 btn-transition btn btn-outline-primary button-filter">Lọc
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-card>
+<!--  end select-top -->
+
+<!-- button crud -->
+<mat-card class="button-system-custom title-header-crud">
+  <div class="row">
+    <div class="col-md-12">
+      <a (click)="onInsertClick()" routerLink="/manager/b2-manager-news-notice" class="button-action add">
+        <i class="fa fa-fw" aria-hidden="true" title="Thêm mới"></i>
+        <span>Thêm mới</span>
+      </a>
+      <a (click)="onAcceptClick()" routerLink="/manager/b2-manager-news-notice" class="button-action acept">
+        <i class="fa fa-fw" aria-hidden="true" title="Duyệt"></i>
+        <span>Duyệt</span>
+      </a>
+      <a (click)="onFocus()" routerLink="/manager/b2-manager-news-notice" class="button-action flag">
+        <i class="fa fa-fw" aria-hidden="true" title="Tiêu điểm"></i>
+        <span>Tiêu điểm</span>
+      </a>
+      <a (click)="onReplyEmail()" routerLink="/manager/b2-manager-news-notice" class="button-action sort">
+        <i class="fa fa-fw" aria-hidden="true" title="Email"></i>
+        <span>Email</span>
+      </a>
+      <a (click)="onDeleteClick()" routerLink="/manager/b2-manager-news-notice" class="button-action del">
+        <i class="fa fa-fw" aria-hidden="true" title="Xóa"></i>
+        <span>Xóa</span>
+      </a>
+      <div class="clear"></div>
+    </div>
+  </div>
+</mat-card>
+<!-- end button crud-->
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!-- Checkbox Column -->
+  <ng-container matColumnDef="select">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+        [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+      </mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+        [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+  <!-- tiêu đề -->
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef>Tiêu Đề</th>
+    <td mat-cell *matCellDef="let element" (click)="openDialog(element)">{{ element.title }}</td>
+  </ng-container>
+
+  <!-- lần xem-->
+  <ng-container matColumnDef="view">
+    <th mat-header-cell *matHeaderCellDef>Lần xem</th>
+    <td mat-cell *matCellDef="let element">{{ element.view }}</td>
+  </ng-container>
+
+  <!-- tiêu điểm -->
+  <ng-container matColumnDef="isfocus">
+    <th mat-header-cell *matHeaderCellDef>
+      Tiêu điểm
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <i *ngIf="element.isfocus==1" class="fa fa-fw icon-acept" aria-hidden="true" title="Tiêu điểm"></i>
+    </td>
+  </ng-container>
+
+  <!-- duyệt -->
+  <ng-container matColumnDef="approved">
+    <th mat-header-cell *matHeaderCellDef>
+      Duyệt
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <i *ngIf="element.approved==1" class="fa fa-fw icon-acept" aria-hidden="true" title="Đã Duyệt"></i>
+    </td>
+  </ng-container>
+
+  <!-- ngày cập nhật -->
+  <ng-container matColumnDef="changedate">
+    <th mat-header-cell *matHeaderCellDef>Ngày cập nhật</th>
+    <td mat-cell *matCellDef="let element">{{ element.changedate | date:'HH:mm dd-MM-yy'}}</td>
+  </ng-container>
+
+  <!-- sửa -->
+  <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef>
+      Sửa
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <i (click)="onUpdateClick(row)" class="fa fa-fw icon-update" aria-hidden="true" title="Sửa"></i>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="selection.toggle(row)"></tr>
+</table>
+
+<!-- end table -->
+
+<!-- button crud -->
+<mat-card class="button-system-custom title-header-crud">
+  <div class="row">
+    <div class="col-md-12">
+      <a (click)="onInsertClick()" routerLink="/manager/b2-manager-news-notice" class="button-action add">
+        <i class="fa fa-fw" aria-hidden="true" title="Thêm mới"></i>
+        <span>Thêm mới</span>
+      </a>
+      <a (click)="onAcceptClick()" routerLink="/manager/b2-manager-news-notice" class="button-action acept">
+        <i class="fa fa-fw" aria-hidden="true" title="Duyệt"></i>
+        <span>Duyệt</span>
+      </a>
+      <a (click)="onFocus()" routerLink="/manager/b2-manager-news-notice" class="button-action flag">
+        <i class="fa fa-fw" aria-hidden="true" title="Tiêu điểm"></i>
+        <span>Tiêu điểm</span>
+      </a>
+      <a (click)="onReplyEmail()" routerLink="/manager/b2-manager-news-notice" class="button-action sort">
+        <i class="fa fa-fw" aria-hidden="true" title="Email"></i>
+        <span>Email</span>
+      </a>
+      <a (click)="onDeleteClick()" routerLink="/manager/b2-manager-news-notice" class="button-action del">
+        <i class="fa fa-fw" aria-hidden="true" title="Xóa"></i>
+        <span>Xóa</span>
+      </a>
+      <div class="clear"></div>
+    </div>
+  </div>
+</mat-card>
+<!-- end button crud-->
+
+<mat-paginator class="mb-20 box-shadow" [pageSizeOptions]="[10, 20, 40, 100]" showFirstLastButtons></mat-paginator>
+
+<!-- thêm mới -->
+<mat-card *ngIf="insertFlag" class="title-block">
+  <div class="row">
+    <div class="col-md-12 title-main">
+      <p>Thêm mới, cập nhật thông tin</p>
+    </div>
+  </div>
+</mat-card>
+
+<!-- card-add-new -->
+<mat-card *ngIf="insertFlag" class="system-custom">
+  <div class="row">
+    <div class="col-md-12">
+
+      <!-- begin form -->
+      <form [formGroup]="form">
+
+        <!-- ngôn ngữ -->
+        <mat-form-field>
+          <mat-label>Ngôn Ngữ:</mat-label>
+          <mat-select formControlName="lang" [(ngModel)]="news.lang">
+            <mat-option *ngFor="let language of languages" [value]="language.value">
+              {{ language.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- website -->
+        <mat-form-field>
+          <mat-label>Website:</mat-label>
+          <mat-select formControlName="siteid" [(ngModel)]="news.siteid"
+            (selectionChange)="onComboboxWebsiteChange(true)">
+            <mat-option *ngFor="let website of websites" [value]="website.id">
+              {{ website.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- thể loại -->
+        <mat-form-field>
+          <mat-label>Thể loại:</mat-label>
+          <mat-select formControlName="typeid" [(ngModel)]="news.typeid">
+            <mat-option *ngFor="let category of categorys" [disabled]="category.ptypeid==0" [value]="category.id"
+              class="titlecategory">
+              {{ category.title }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div
+          *ngIf="form.controls['typeid'].invalid && (form.controls['typeid'].dirty || form.controls['typeid'].touched)"
+          class="alert alert-danger form-custom">
+          <div *ngIf="form.controls['typeid'].errors.required">
+            Bạn phải chọn thể loại
+          </div>
+        </div>
+
+        <!-- tiêu đề -->
+        <mat-form-field class="example-full-width">
+          <mat-label>Tiêu Đề</mat-label>
+          <input formControlName="title" [(ngModel)]="news.title" matInput placeholder="Nhập tiêu đề..." />
+        </mat-form-field>
+        <div *ngIf="form.controls['title'].invalid && (form.controls['title'].dirty || form.controls['title'].touched)"
+          class="alert alert-danger form-custom">
+          <div *ngIf="form.controls['title'].errors.required">
+            Bạn phải nhập tiêu đề
+          </div>
+          <div *ngIf="form.controls['title'].errors.maxlength">
+            Tiêu đề không quá 250 ký tự
+          </div>
+        </div>
+
+        <!-- ngày đăng -->
+        <mat-form-field>
+          <mat-label>Ngày Đăng</mat-label>
+          <input [readonly]="true" formControlName="postdate" [(ngModel)]="news.postdate" matInput>
+          <!-- <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+          <mat-datepicker #picker3></mat-datepicker> -->
+        </mat-form-field>
+        <!-- <div
+          *ngIf="form.controls['postdate'].invalid && (form.controls['postdate'].dirty || form.controls['postdate'].touched)"
+          class="alert alert-danger form-custom">
+          <div *ngIf="form.controls['postdate'].errors.required">
+            Bạn phải chọn ngày đăng
+          </div>
+        </div> -->
+
+        <!-- chọn ảnh -->
+        <mat-form-field class="example-full-width">
+          <mat-label>Chọn ảnh</mat-label>
+          <input formControlName="pathimage" [(ngModel)]="news.pathimage" matInput placeholder="Nhập tiêu đề..." />
+        </mat-form-field>
+        <!-- open upload file -->
+        <a onClick="MyWindow=window.open('http://hce.edu.vn/new/UploadFile/uploadfile.php','MyWindow','width=1200,height=600'); return false;"
+          routerLink="/manager/b2-manager-news-notice" class="btn btn-info mr-2 mb-2">
+          <i class="fas fa-cloud-upload-alt mr-1" title="Chọn tập tin"></i>
+          <span>Chọn tập tin</span>
+        </a>
+        <!-- <a (click)="buttonPaste()" routerLink="/manager/b2-manager-news-notice" class="btn btn-success mb-2">
+          <i class="fas fa-paste mr-1" title="Dán Link"></i>
+          <span>Dán Link</span>
+        </a> -->
+
+
+        <!-- chú thích ảnh -->
+        <mat-form-field class="example-full-width">
+          <mat-label>Chú thích ảnh</mat-label>
+          <input formControlName="comment" [(ngModel)]="news.comment" matInput placeholder="Nhập chú thích ảnh..." />
+        </mat-form-field>
+
+        <!-- tóm tắt -->
+        <mat-form-field appearance="fill">
+          <mat-label>Tóm Tắt</mat-label>
+          <textarea formControlName="summary" [(ngModel)]="news.summary" matInput class="mh-100"></textarea>
+        </mat-form-field>
+
+        <!-- nội dung -->
+        <mat-label>Nội dung</mat-label>
+        <ckeditor formControlName="content" [(ngModel)]="news.content" [config]="{uiColor: '#2BBBAD'}"
+          [readonly]="false" debounce="500">
+        </ckeditor>
+
+        <div
+          *ngIf="form.controls['content'].invalid && (form.controls['content'].dirty || form.controls['content'].touched)"
+          class="alert alert-danger form-custom">
+          <div *ngIf="form.controls['content'].errors.required">
+            Bạn phải nhập nội dung
+          </div>
+        </div>
+      </form>
+
+      <!-- Nguồn  -->
+      <mat-form-field class="example-full-width">
+        <mat-label>Nguồn</mat-label>
+        <input [(ngModel)]="news.author" matInput />
+      </mat-form-field>
+
+      <!-- checkbox -->
+      <mat-checkbox class="mr-20" [(ngModel)]="news.approved">Duyệt</mat-checkbox>
+
+      <!-- checkbox -->
+      <mat-checkbox [(ngModel)]="news.isfocus">Tiêu điểm</mat-checkbox>
+
+      <!-- button update - destroy -->
+      <div class="example-button-row text-center">
+        <button (click)="onSubmitClick()" class="mb-2 mr-2 btn-transition btn btn-primary button-update">Cập nhật
+        </button>
+        <button (click)="onCancelClick()" class="mb-2 mr-2 btn-transition btn btn-primary button-destroy">Hủy bỏ
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-card>
+<!--  end card-add-new -->

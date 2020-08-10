@@ -1,0 +1,52 @@
+<p class="font-weight-normal text-center text-uppercase">
+  Thông tin khách đặt ghế số {{seat}}</p>
+
+<div class="row">
+  <div class="col">
+    <!-- name -->
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <input [(ngModel)]="user.name" (change)="onValueChange()" [formControl]="myControl" type="text"
+          placeholder="Họ Và Tên" aria-label="Number" matInput [matAutocomplete]="phuong">
+        <mat-autocomplete (optionSelected)="onSelectName()" #phuong="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option.id">
+            {{option.name}} : {{option.phone}} : {{option.born}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+  </div>
+  <div class="col">
+    <!-- phone -->
+    <mat-form-field class="example-full-width">
+      <input [(ngModel)]="user.phone" (change)="onValueChange()" matInput placeholder="Số Điện Thoại" value="">
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <!-- cmnd -->
+    <mat-form-field class="example-full-width">
+      <input [(ngModel)]="user.cmnd" (change)="onValueChange()" matInput placeholder="Số CMND" value="">
+    </mat-form-field>
+  </div>
+  <div class="col">
+    <!-- born -->
+    <mat-form-field class="example-full-width">
+      <input matInput [(ngModel)]="user.born" (click)="picker.open()" (dateChange)="onValueChange()"
+        [matDatepicker]="picker" placeholder="Ngày Tháng Năm Sinh">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <!-- address -->
+    <mat-form-field class="example-full-width">
+      <textarea [(ngModel)]="user.address" (change)="onValueChange()" matInput placeholder="Địa Chỉ"></textarea>
+    </mat-form-field>
+  </div>
+</div>

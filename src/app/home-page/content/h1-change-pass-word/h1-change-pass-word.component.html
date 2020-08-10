@@ -1,0 +1,96 @@
+
+    <!-- Thông tin tài khoản -->
+    <mat-card class="title-block col-md-12">
+        <div class="row">
+            <div class="col-md-12 title-main">
+                <p>Thay đổi mật khẩu tài khoản</p>
+            </div>
+        </div>
+    </mat-card>
+    <mat-card class="system-custom col-md-12">
+        <div class="row">
+            <div class="col-md-12 title-main">
+    
+                <!-- begin form -->
+                <form [formGroup]="form">
+                    <div class="example-container ">
+                        <mat-form-field appearance="fill" class="example-full-width">
+                            <mat-label>Nhập mật khẩu cũ<span class="text-red">*</span></mat-label>
+                            <input formControlName="password" [(ngModel)]="oldpassword" matInput
+                                [type]="hide ? 'password' : 'text'">
+                            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                                [attr.aria-pressed]="hide" class="button-password">
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                        </mat-form-field>
+                        <div *ngIf="form.controls['password'].invalid && (form.controls['password'].dirty || form.controls['password'].touched)"
+                            class="alert alert-danger form-custom">
+                            <div *ngIf="form.controls['password'].errors.required">
+                                Bạn phải nhập mật khẩu cũ
+                            </div>
+                            <div *ngIf="form.controls['password'].errors.maxlength">
+                                Mật khẩu không quá 30 ký tự
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example-container">
+                        <mat-form-field appearance="fill" class="example-full-width">
+                            <mat-label>Nhập mật khẩu mới<span class="text-red">*</span></mat-label>
+                            <input formControlName="newpassword" [(ngModel)]="newpassword" matInput [type]="hide1 ? 'password' : 'text'">
+                            <button mat-icon-button matSuffix (click)="hide1 = !hide1" [attr.aria-label]="'Hide password'"
+                                [attr.aria-pressed]="hide1" class="button-password">
+                                <mat-icon>{{hide1 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                        </mat-form-field>
+                        <div *ngIf="form.controls['newpassword'].invalid && (form.controls['newpassword'].dirty || form.controls['newpassword'].touched)"
+                            class="alert alert-danger form-custom">
+                            <div *ngIf="form.controls['newpassword'].errors.required">
+                                Bạn phải nhập mật khẩu mới
+                            </div>
+                            <div *ngIf="form.controls['newpassword'].errors.maxlength">
+                                Mật khẩu không quá 30 ký tự
+                            </div>
+                            <div *ngIf="form.controls['newpassword'].errors.minlength">
+                                Mật khẩu ít nhất 6 ký tự
+                            </div>
+                        </div>
+                    </div>
+                    <div class="example-container">
+                        <mat-form-field appearance="fill" class="example-full-width">
+                            <mat-label>Nhập lại mật khẩu<span class="text-red">*</span></mat-label>
+                            <input formControlName="repassword" [(ngModel)]="repassword" matInput [type]="hide2 ? 'password' : 'text'">
+                            <button mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'"
+                                [attr.aria-pressed]="hide2" class="button-password">
+                                <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                        </mat-form-field>
+                        <div *ngIf="form.controls['repassword'].invalid && (form.controls['repassword'].dirty || form.controls['repassword'].touched)"
+                            class="alert alert-danger form-custom">
+                            <div *ngIf="form.controls['repassword'].errors.required">
+                                Bạn phải nhập mật khẩu mới
+                            </div>
+                            <div *ngIf="form.controls['repassword'].errors.maxlength">
+                                Mật khẩu không quá 30 ký tự
+                            </div>
+                            <div *ngIf="form.controls['repassword'].errors.minlength">
+                                Mật khẩu ít nhất 6 ký tự
+                            </div>
+                            <div *ngIf="form.controls['repassword'].errors.mustMatch">
+                                Mật mới chưa trùng
+                            </div>
+                        </div>
+                    </div>
+                </form>
+    
+                <!-- button update - destroy -->
+                <div class="example-button-row text-center">
+                    <button (click)="onChangePassword()" class="mb-2 mr-2 btn-transition btn btn-primary button-update">Cập
+                        nhật
+                    </button>
+                    <button (click)="onCancelClick()" class="mb-2 mr-2 btn-transition btn btn-primary button-destroy">Hủy bỏ
+                    </button>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+    <!-- end Thông tin tài khoản -->

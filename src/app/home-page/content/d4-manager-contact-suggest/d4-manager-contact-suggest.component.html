@@ -1,0 +1,242 @@
+<mat-card class="title-block">
+  <div class="row">
+    <div class="col-md-12 title-main">
+      <p>Quản trị liên hệ, góp ý</p>
+    </div>
+  </div>
+</mat-card>
+
+<!-- select-top -->
+<mat-card class="system-custom">
+  <div class="row">
+    <div class="col-md-6 col-xs-12">
+
+      <!-- Từ khoá -->
+      <mat-form-field class="example-full-width">
+        <mat-label>Từ khoá</mat-label>
+        <input [(ngModel)]="titleId" matInput placeholder="Nhập tiêu đề..." />
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+
+      <!-- Ngôn ngữ -->
+      <mat-form-field>
+        <mat-label>Ngôn Ngữ:</mat-label>
+        <mat-select [(ngModel)]="languageId">
+          <mat-option *ngFor="let language of languages" [value]="language.value">
+            {{ language.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+
+      <!-- Trạng thái-->
+      <mat-form-field>
+        <mat-label>Trạng Thái:</mat-label>
+        <mat-select [(ngModel)]="statusId">
+          <mat-option *ngFor="let statusItem of status" [value]="statusItem.value">
+            {{ statusItem.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+      <div class="example-button-row contain-button-filter">
+
+        <!-- Button Lọc -->
+        <button (click)="onFillterClick()" class="mb-2 mr-2 btn-transition btn btn-outline-primary button-filter">Lọc
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-card>
+<!--  end select-top -->
+
+<!-- button crud -->
+<mat-card class="button-system-custom title-header-crud">
+  <div class="row">
+    <div class="col-md-12">
+      <a (click)="onAcceptClick()" routerLink="/d4-manager-contact-suggest" class="button-action acept">
+        <i class="fa fa-fw" aria-hidden="true" title="Duyệt"></i>
+        <span>Duyệt</span>
+      </a>
+      <a (click)="onDeleteClick()" routerLink="/d4-manager-contact-suggest" class="button-action del">
+        <i class="fa fa-fw" aria-hidden="true" title="Xóa"></i>
+        <span>Xóa</span>
+      </a>
+      <div class="clear"></div>
+    </div>
+  </div>
+</mat-card>
+
+<!-- end button crud-->
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!-- Checkbox Column -->
+  <ng-container matColumnDef="select">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+        [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+      </mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+        [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="stt">
+    <th mat-header-cell *matHeaderCellDef>STT</th>
+    <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+  </ng-container>
+
+  <!-- tiêu đề -->
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef>Tiêu Đề</th>
+    <td mat-cell *matCellDef="let element" (click)="openDialog(element)">{{ element.title }}</td>
+  </ng-container>
+
+  <!-- người gửi -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Người gửi</th>
+    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+  </ng-container>
+
+  <!-- trả lời -->
+  <ng-container matColumnDef="reply">
+    <th mat-header-cell *matHeaderCellDef>
+      Trả Lời
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <i *ngIf="row.reply==1" class="fa fa-fw icon-acept" aria-hidden="true" title="Trả lời"></i>
+    </td>
+  </ng-container>
+
+  <!-- ngày cập nhật -->
+  <ng-container matColumnDef="postdate">
+    <th mat-header-cell *matHeaderCellDef>Ngày cập nhật</th>
+    <td mat-cell *matCellDef="let element">{{ element.postdate | date:'dd/MM/yyyy' }}</td>
+  </ng-container>
+
+  <!-- duyệt -->
+  <ng-container matColumnDef="approved">
+    <th mat-header-cell *matHeaderCellDef>
+      Duyệt
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <i *ngIf="row.approved==1" class="fa fa-fw icon-acept" aria-hidden="true" title="Đã Duyệt"></i>
+    </td>
+  </ng-container>
+
+  <!-- sửa -->
+  <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef>
+      Reply
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <i (click)="onReply(row)" class="fa fa-fw icon-update" aria-hidden="true" title="Reply"></i>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="selection.toggle(row)"></tr>
+</table>
+<!-- end table -->
+
+<!-- button crud -->
+<mat-card class="button-system-custom button-system-custom-footer">
+  <div class="row">
+    <div class="col-md-12">
+      <a (click)="onAcceptClick()" routerLink="/d4-manager-contact-suggest" class="button-action acept">
+        <i class="fa fa-fw" aria-hidden="true" title="Duyệt"></i>
+        <span>Duyệt</span>
+      </a>
+      <a (click)="onDeleteClick()" routerLink="/d4-manager-contact-suggest" class="button-action del">
+        <i class="fa fa-fw" aria-hidden="true" title="Xóa"></i>
+        <span>Xóa</span>
+      </a>
+      <div class="clear"></div>
+    </div>
+  </div>
+</mat-card>
+<!-- end button crud-->
+<mat-paginator class="mb-20 box-shadow" [pageSizeOptions]="[10, 20, 40, 100]" showFirstLastButtons></mat-paginator>
+
+<!-- thêm mới -->
+<mat-card *ngIf="insertFlag" class="title-block">
+  <div class="row">
+    <div class="col-md-12 title-main">
+      <p>Thêm mới, cập nhật thông tin</p>
+    </div>
+  </div>
+</mat-card>
+
+<!-- card-add-new -->
+<mat-card *ngIf="insertFlag" class="system-custom">
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="form">
+
+        <!-- tên tiêu đề -->
+        <mat-form-field class="example-full-width">
+          <mat-label>Tên liên kết <span class="text-red">*</span></mat-label>
+          <input formControlName="title" [(ngModel)]="feedbacks.title" matInput placeholder="Nhập tiêu đề..." />
+        </mat-form-field>
+        <div *ngIf="form.controls['title'].invalid && (form.controls['title'].dirty || form.controls['title'].touched)"
+          class="alert alert-danger form-custom">
+          <div *ngIf="form.controls['title'].errors.required">
+            Bạn phải nhập liên kết
+          </div>
+          <div *ngIf="form.controls['title'].errors.maxlength">
+            Tên liên kết không quá 250 ký tự
+          </div>
+        </div>
+
+        <!-- địa chỉ website -->
+        <mat-form-field class="example-full-width">
+          <mat-label>Email nhận <span class="text-red">*</span></mat-label>
+          <input formControlName="email" [(ngModel)]="feedbacks.email" matInput placeholder="Nhập địa chỉ email" />
+        </mat-form-field>
+        <div *ngIf="form.controls['email'].invalid && (form.controls['email'].dirty || form.controls['email'].touched)"
+          class="alert alert-danger form-custom">
+          <div *ngIf="form.controls['email'].errors.required">
+            Bạn phải nhập địa chỉ email
+          </div>
+          <div *ngIf="form.controls['email'].errors.maxlength">
+            Tên email không quá 255 ký tự
+          </div>
+          <div *ngIf="form.controls['email'].errors.email">
+            Bạn phải nhập đúng email
+          </div>
+        </div>
+
+        <!--  textarea Nội dung -->
+        <mat-label>Nội dung</mat-label>
+        <ckeditor formControlName="content" [(ngModel)]="feedbacks.content" [config]="{uiColor: '#2BBBAD'}"
+          [readonly]="false" debounce="500">
+        </ckeditor>
+        <div
+          *ngIf="form.controls['content'].invalid && (form.controls['content'].dirty || form.controls['content'].touched)"
+          class="alert alert-danger form-custom">
+          <div *ngIf="form.controls['content'].errors.required">
+            Bạn phải nhập nội dung
+          </div>
+        </div>
+      </form>
+
+      <!-- button update - destroy -->
+      <div class="example-button-row text-center">
+        <button (click)="onSendClick()" class="mb-2 mr-2 btn-transition btn btn-primary button-update">Gửi
+        </button>
+        <button (click)="onCancelClick()" class="mb-2 mr-2 btn-transition btn btn-primary button-destroy">Hủy bỏ
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-card>
+<!--  end card-add-new -->

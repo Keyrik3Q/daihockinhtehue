@@ -1,0 +1,31 @@
+<img class="wave" src="/new/cmsadmin/assets/images/wave.png">
+<div class="container">
+    <div class="img">
+        <img src="/new/cmsadmin/assets/images/bgii.png">
+    </div>
+    <div class="login-content">
+        <form action="index.html">
+            <img src="/new/cmsadmin/assets/images/logo-hce.png">
+            <h2 class="title">Welcome</h2>
+            <div class="input-div one">
+                <div class="i">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="div">
+                    <input [(ngModel)]="input.username" [ngModelOptions]="{standalone: true}" type="text" class="input"
+                        placeholder="Username">
+                </div>
+            </div>
+            <div class="input-div pass">
+                <div class="i">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="div">
+                    <input [(ngModel)]="passwordMd5" [ngModelOptions]="{standalone: true}" type="password" class="input"
+                        placeholder="Password">
+                </div>
+            </div>
+            <input (click)="onLoginClick()" type="submit" class="btn" value="Login">
+        </form>
+    </div>
+</div>

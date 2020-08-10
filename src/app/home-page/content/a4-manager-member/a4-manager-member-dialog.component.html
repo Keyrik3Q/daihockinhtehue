@@ -1,0 +1,424 @@
+<mat-card class="title-block">
+  <div class="row">
+    <div class="col-md-12 title-main">
+      <p>Phân quyền cho hệ thống</p>
+    </div>
+  </div>
+</mat-card>
+
+<mat-card class="content-dialog">
+  <div class="cate-title">
+    <p><span>Thành viên </span>---><span> Quản trị hệ thống</span></p>
+  </div>
+  <div class="title-role">
+    <p>Phần quyền quản trị các website:</p>
+  </div>
+
+  <!-- list website -->
+  <div class="list-checkbox-web">
+    <mat-checkbox  [(ngModel)]="site1">
+      Website thông tin trường ĐH Kinh tế Huế
+    </mat-checkbox>
+  </div>
+  <div class="list-checkbox-web">
+    <mat-checkbox  [(ngModel)]="site2">
+      Khoa Quản trị Kinh doanh
+    </mat-checkbox>
+  </div>
+  <div class="list-checkbox-web">
+    <mat-checkbox  [(ngModel)]="site3">
+      Khoa Kinh tế & Phát triển
+    </mat-checkbox>
+  </div>
+  <div class="list-checkbox-web">
+    <mat-checkbox  [(ngModel)]="site4">
+      Khoa Kế toán - Kiểm toán
+    </mat-checkbox>
+  </div>
+  <div class="list-checkbox-web">
+    <mat-checkbox  [(ngModel)]="site5">
+      Khoa Kinh tế Chính trị
+    </mat-checkbox>
+  </div>
+  <div class="list-checkbox-web">
+    <mat-checkbox  [(ngModel)]="site6">
+      Phòng Đào Tạo Đại Học
+    </mat-checkbox>
+  </div>
+  <div class="list-checkbox-web">
+    <mat-checkbox  [(ngModel)]="site7">
+      Phòng Đào tạo Sau đại học
+    </mat-checkbox>
+  </div>
+  <div class="list-checkbox-web">
+    <mat-checkbox  [(ngModel)]="site8">
+      Phòng Kế hoạch - Tài chính
+    </mat-checkbox>
+  </div>
+  <div class="list-checkbox-web">
+    <mat-checkbox  [(ngModel)]="site9">
+      Thư viện
+    </mat-checkbox>
+  </div>
+  <div class="list-checkbox-web">
+    <mat-checkbox  [(ngModel)]="site10">
+      Khoa Hệ thống Thông tin Kinh tế
+    </mat-checkbox>
+  </div>
+  <div class="list-checkbox-web">
+    <mat-checkbox  [(ngModel)]="site11">
+      Phòng Khảo thí và ĐBCLGD
+    </mat-checkbox>
+  </div>
+  <div class="list-checkbox-web">
+    <mat-checkbox  [(ngModel)]="site12">
+      Phòng Tổ chức - Hành chính
+    </mat-checkbox>
+  </div>
+  <div class="list-checkbox-web">
+    <mat-checkbox  [(ngModel)]="site13">
+      Chương trình tiên tiến
+    </mat-checkbox>
+  </div>
+  <div class="list-checkbox-web">
+    <mat-checkbox  [(ngModel)]="site14">
+      Chương trình Rennes
+    </mat-checkbox>
+  </div>
+  <div class="list-checkbox-web">
+    <mat-checkbox  [(ngModel)]="site15">
+      Cổng Thông tin tuyển sinh
+    </mat-checkbox>
+  </div>
+  <div class="list-checkbox-web">
+    <mat-checkbox  [(ngModel)]="site16">
+      Trung tâm hỗ trợ sinh viên
+    </mat-checkbox>
+  </div>
+  <div class="list-checkbox-web">
+    <mat-checkbox  [(ngModel)]="site17">
+      10 năm xây dựng và phát triển
+    </mat-checkbox>
+  </div>
+  <div class="list-checkbox-web">
+    <mat-checkbox  [(ngModel)]="site18">
+      Bộ môn Marketing
+    </mat-checkbox>
+  </div>
+  <div class="list-checkbox-web">
+    <mat-checkbox  [(ngModel)]="site19">
+      Phòng Công tác sinh viên - Thư viện
+    </mat-checkbox>
+  </div>
+  <div class="list-checkbox-web">
+    <mat-checkbox  [(ngModel)]="site20">
+      Khoa Kế toán-Tài chính 
+    </mat-checkbox>
+  </div>
+  <div class="list-checkbox-web">
+    <mat-checkbox  [(ngModel)]="site21">
+      Phòng Cơ sở vật chất
+    </mat-checkbox>
+  </div>
+  <div class="list-checkbox-web">
+    <mat-checkbox  [(ngModel)]="site22">
+      Phòng KHCN - HTQT
+    </mat-checkbox>
+  </div>
+  <div class="list-checkbox-web">
+    <mat-checkbox  [(ngModel)]="site23">
+      HỘI THẢO KHOA HỌC QUỐC TẾ
+    </mat-checkbox>
+  </div>
+  <div class="title-cate">
+    <p>Phân quyền quản trị các chuyên mục</p>
+  </div>
+  <!--- table --->
+  <div class="table-cate">
+    <table>
+      <tr style="background-color: #2BBAAC;">
+        <th><input type="checkbox"></th>
+        <th>Chuyên mục</th>
+        <th>Quyền</th>
+      </tr>
+
+      <!-- load data categories -->
+      <tr>
+        <td>01</td>
+        <td>
+          <span><strong>Hệ Thống</strong></span>
+        </td>
+        <td>
+          <mat-checkbox [(ngModel)]="onCheckSystem" (click)="onCheckSystemClick()">
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>02</td>
+        <td>
+          <span>Hệ thống chức năng</span>
+        </td>
+        <td>
+          <mat-checkbox  [(ngModel)]="permission1"> 
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>03</td>
+        <td>
+          <span>Quản lý thành viên</span>
+        </td>
+        <td>
+          <mat-checkbox  [(ngModel)]="permission2">
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>04</td>
+        <td>
+          <span>Hệ thống menu</span>
+        </td>
+        <td>
+          <mat-checkbox  [(ngModel)]="permission3">
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>05</td>
+        <td>
+          <span>Cấu hình website</span>
+        </td>
+        <td>
+          <mat-checkbox  [(ngModel)]="permission4">
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>06</td>
+        <td>
+          <span>Quản trị hình ảnh</span>
+        </td>
+        <td>
+          <mat-checkbox  [(ngModel)]="permission5">
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>07</td>
+        <td>
+          <span>Quản trị thông tin liên hệ</span>
+        </td>
+        <td>
+          <mat-checkbox  [(ngModel)]="permission6">
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>08</td>
+        <td>
+          <span><strong>Thư viện hình ảnh</strong></span>
+        </td>
+        <td>
+          <mat-checkbox [(ngModel)]="onCheckImage" (click)="onCheckImageClick()">
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>09</td>
+        <td>
+          <span>Quản trị bộ ảnh</span>
+        </td>
+        <td>
+          <mat-checkbox  [(ngModel)]="permission7">
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>
+          <span><strong>Thông tin chính</strong></span>
+        </td>
+        <td>
+          <mat-checkbox [(ngModel)]="onCheckinFormation" (click)="onCheckinFormationClick()">
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>
+          <span>Thông tin bài viết</span>
+        </td>
+        <td>
+          <mat-checkbox  [(ngModel)]="permission8">
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>
+          <span><strong>Trao đổi</strong></span>
+        </td>
+        <td>
+          <mat-checkbox [(ngModel)]="onCheckinChange" (click)="onCheckinChangeClick()">
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td>
+          <span>Quản trị hỗ trợ trực tuyến</span>
+        </td>
+        <td>
+          <mat-checkbox  [(ngModel)]="permission9">
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td>
+          <span>Quản trị văn bản - tài liệu</span>
+        </td>
+        <td>
+          <mat-checkbox  [(ngModel)]="permission10">
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td>
+          <span>Quản trị tin tức - thông báo</span>
+        </td>
+        <td>
+          <mat-checkbox  [(ngModel)]="permission11">
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td>
+          <span>Liên kết website</span>
+        </td>
+        <td>
+          <mat-checkbox  [(ngModel)]="permission12">
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td>
+          <span>Quản trị liên hệ, góp ý</span>
+        </td>
+        <td>
+          <mat-checkbox  [(ngModel)]="permission13">
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td>
+          <span>Quản lý website</span>
+        </td>
+        <td>
+          <mat-checkbox  [(ngModel)]="permission14">
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td>
+          <span>Quản lý mẫu giao diện</span>
+        </td>
+        <td>
+          <mat-checkbox  [(ngModel)]="permission15">
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td>
+          <span>Liên kết</span>
+        </td>
+        <td>
+          <mat-checkbox  [(ngModel)]="permission16">
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>21</td>
+        <td>
+          <span> Quản lý banner</span>
+        </td>
+        <td>
+          <mat-checkbox  [(ngModel)]="permission17">
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>22</td>
+        <td>
+          <span>Trưng cầu ý kiến</span>
+        </td>
+        <td>
+          <mat-checkbox  [(ngModel)]="permission18">
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>23</td>
+        <td>
+          <span>Vùng liên kết</span>
+        </td>
+        <td>
+          <mat-checkbox  [(ngModel)]="permission19">
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>24</td>
+        <td>
+          <span><strong>Liên kết</strong></span>
+        </td>
+        <td>
+          <mat-checkbox [(ngModel)]="permission22">
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td>
+          <span><strong>Lịch công tác</strong></span>
+        </td>
+        <td>
+          <mat-checkbox [(ngModel)]="onCheckinCalendar" (click)="onCheckinCalendarClick()">
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td>
+          <span>Lịch công tác</span>
+        </td>
+        <td>
+          <mat-checkbox  [(ngModel)]="permission20">
+          </mat-checkbox>
+        </td>
+      </tr>
+      <tr>
+        <td>27</td>
+        <td>
+          <span>Định nghĩa vị trí</span>
+        </td>
+        <td>
+          <mat-checkbox  [(ngModel)]="permission21">
+          </mat-checkbox>
+        </td>
+      </tr>
+
+    </table>
+  </div>
+  <div class="example-button-row text-right">
+    <button (click)="onUpdateSysmember()" routerLink="/manager/a4-manager-member"
+      class="mb-2 mr-2 btn-transition btn btn-primary button-role">Cấp quyền
+    </button>
+  </div>
+</mat-card>

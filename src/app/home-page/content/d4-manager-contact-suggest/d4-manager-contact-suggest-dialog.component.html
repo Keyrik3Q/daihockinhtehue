@@ -1,0 +1,45 @@
+<mat-card class="title-block">
+  <div class="row">
+    <div class="col-md-12 title-main" >
+      <p>Thông tin liên hệ và phản hồi </p>
+    </div>
+  </div>
+</mat-card>
+<div class="table-cate">
+<table class="table-dialog"> 
+  <tr *ngFor="let feedbackdialog of feedbackdialogs">
+    <th>Tiêu đề</th>
+    <td style = "color:#e74c3c">{{feedbackdialog.title}}</td>
+  </tr> 
+  <tr *ngFor="let feedbackdialog of feedbackdialogs">
+    <th>Người gửi</th>
+    <td>{{feedbackdialog.name}}</td>
+  </tr>
+  <tr *ngFor="let feedbackdialog of feedbackdialogs">
+    <th>Email</th>
+    <td>{{feedbackdialog.email}}</td>
+  </tr>
+  <tr *ngFor="let feedbackdialog of feedbackdialogs">
+    <th>Số điện thoại</th>
+    <td>{{feedbackdialog.phone}}</td>
+  </tr>
+  <tr *ngFor="let feedbackdialog of feedbackdialogs">
+    <th>Địa chỉ</th>
+    <td>{{feedbackdialog.address}}</td>
+  </tr>
+  <tr *ngFor="let feedbackdialog of feedbackdialogs">
+    <th>Ngày gửi</th>
+    <td>{{feedbackdialog.postdate}}</td>
+  </tr>
+</table>
+</div>
+<mat-card class="title-block">
+  <div class="row">
+    <div class="col-md-12 title-main">
+      <p>Nội dung</p>
+    </div>
+  </div>
+</mat-card>
+<mat-card class="content-dialog">  
+  <div #data [innerHTML]="content.content"></div>
+</mat-card>

@@ -1,0 +1,136 @@
+<mat-card class="title-block">
+  <div class="row">
+    <div class="col-md-12 title-main">
+      <p>Quản lý tệp tin thư mục</p>
+    </div>
+  </div>
+</mat-card>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="row">
+
+      <!-- col-left -->
+      <div class="col-md-6 pd-0">
+        <div class="col-left">
+          <div class="mb-3 card">
+
+            <!-- name file block -->
+            <div class="card-header-tab card-header">
+              <ul class="nav">
+                <li class="nav-item"><a data-toggle="tab" class="nav-link active show">Tên thư mục/tập
+                    tin</a></li>
+                <li class="nav-item"><a disabled data-toggle="tab" class="nav-link show">Dung lượng</a>
+                </li>
+                <li class="nav-item"><a disabled data-toggle="tab" class="nav-link show">Ngày tạo</a>
+                </li>
+              </ul>
+            </div>
+            <div class="card-body">
+              <div class="tab-content">
+                <div class="tab-pane active show" id="name" role="tabpanel">
+                  <ul class="list-file">
+                    <li><a href="">khoa te toan kiem toan</a></li>
+                    <li><a href="">31/3/2020</a></li>
+                    <li><a href="">hinh truong kinh te</a></li>
+                    <li><a href="">khoa te toan kiem toan</a></li>
+                    <li><a href="">31/3/2020</a></li>
+                    <li><a href="">hinh truong kinh te</a></li>
+                    <li><a href="">khoa te toan kiem toan</a></li>
+                    <li><a href="">31/3/2020</a></li>
+                    <li><a href="">hinh truong kinh te</a></li>
+                    <li><a href="">khoa te toan kiem toan</a></li>
+                    <li><a href="">31/3/2020</a></li>
+                    <li><a href="">hinh truong kinh te</a></li>
+                    <li><a href="">khoa te toan kiem toan</a></li>
+                    <li><a href="">31/3/2020</a></li>
+                    <li><a href="">hinh truong kinh te</a></li>
+                    <li><a href="">khoa te toan kiem toan</a></li>
+                    <li><a href="">31/3/2020</a></li>
+                    <li><a href="">hinh truong kinh te</a></li>
+                    <li><a href="">khoa te toan kiem toan</a></li>
+                    <li><a href="">31/3/2020</a></li>
+                    <li><a href="">hinh truong kinh te</a></li>
+                    <li><a href="">khoa te toan kiem toan</a></li>
+                    <li><a href="">31/3/2020</a></li>
+                    <li><a href="">hinh truong kinh te</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- end name file block -->
+          </div>
+        </div>
+      </div>
+      <!-- col-right -->
+      <div class="col-md-6">
+        <div class="col-left">
+          <div class="">
+            <a href="" class="thumb">
+              <img *ngIf="isUpdate == false" src="http://www.hce.edu.vn/cmsadmin/images/NoImage.gif" alt="">
+              <img *ngIf="isUpdate == true" [src]="imgURL" width="200px" />
+            </a>
+
+            <!-- button process -->
+            <div class="button">
+              <button class="mb-2 mr-2 btn btn-primary">Chọn tập tin
+              </button>
+              <button class="mb-2 mr-2 btn btn-danger">Xóa tập tin
+              </button>
+              <button class="mb-2 mr-2 btn btn-focus">Đóng
+              </button>
+            </div>
+            <div class="clear"></div>
+          </div>
+
+          <p class="name-file">Chưa chọn tệp tin nào!</p>
+
+          <div class="block-upload">
+
+            <!-- upload file -->
+            <div class="choose-file-block">
+              <p class="title-upload">Tải tập tin lên máy chủ</p>
+              <!-- <input type="file" value="Chọn file"><br>
+                <input type="button" value="Tải tập tin"> -->
+              <div style="text-align:left; margin-top: 10px;">
+                <input #file type="file" #fileUpload id="fileUpload" name="fileUpload" multiple="multiple"
+                  accept="image/*" style="display:none;" (change)="preview(file.files)" />
+                <mat-card style="box-shadow:none;">
+                  <mat-card-actions style="margin-bottom:2px;">
+                    <button mat-button color="warn" (click)="onClick()"
+                      style="padding: 3px;width: 200px;text-align: center;background: #2bbbad;box-shadow: 1px 1px 6px 1px;;color:#fff">
+                      <mat-icon>file_upload</mat-icon>
+                      Tải file
+                    </button>
+                  </mat-card-actions>
+                </mat-card>
+              </div>
+              <br>
+            </div>
+
+            <!-- type file -->
+            <div class="choose-type-block">
+              <p class="title-upload">Chọn lựa loại tập tin</p>
+              <input type="checkbox" name="" value="ON" checked=""> .gif
+              <input type="checkbox" name="" value="ON" checked=""> .png
+              <input type="checkbox" name="" value="ON" checked=""> .jpg
+              <input type="checkbox" name="" value="ON" checked=""> .doc
+              <input type="checkbox" name="" value="ON" checked=""> .pfd
+              <input type="checkbox" name="" value="ON" checked=""> .ppt
+              <input type="checkbox" name="" value="ON" checked=""> .xls
+              <input type="checkbox" name="" value="ON" checked=""> .zip
+              <input type="checkbox" name="" value="ON" checked=""> .raz
+            </div>
+
+            <div class="process-file">
+              <p class="title-upload">Thao tác tập tin và thư mục <i style="font-weight: 100">(thư mục hiện tại)</i></p>
+              <input name="" value="/upload/sdh" type="text" class="form-control">
+              <input name="" type="text" class="form-control"><button class="mb-2 mr-2 btn btn-success">Tạo mới
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,290 @@
+<mat-card class="title-block">
+  <div class="row">
+    <div class="col-md-12 title-main">
+      <p>Quản lý thành viên</p>
+    </div>
+  </div>
+</mat-card>
+
+<!-- select-top -->
+<mat-card class="system-custom">
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field>
+        <mat-label>Website:</mat-label>
+        <mat-select [(ngModel)]="websiteId">
+          <mat-option *ngFor="let website of websites" [value]="website.id">
+            {{ website.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+      <div class="example-button-row contain-button-filter">
+        <button (click)="onFillterClick()" class="mb-2 mr-2 btn-transition btn btn-outline-primary button-filter">Lọc
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-card>
+<!--  end select-top -->
+
+<!-- button crud -->
+<mat-card class="button-system-custom title-header-crud">
+  <div class="row">
+    <div class="col-md-12">
+
+      <!-- add -->
+      <a (click)="onInsertClick()" routerLink="/manager/a4-manager-member" class="button-action add">
+        <i class="fa fa-fw" aria-hidden="true" title="Thêm mới"></i>
+        <span>Thêm mới</span>
+      </a>
+
+      <!-- approved -->
+      <a (click)="onAcceptClick()" routerLink="/manager/a4-manager-member" class="button-action acept">
+        <i class="fa fa-fw" aria-hidden="true" title="Duyệt"></i>
+        <span>Duyệt</span>
+      </a>
+
+      <!-- delete -->
+      <a (click)="onDeleteClick()" routerLink="/manager/a4-manager-member" class="button-action del">
+        <i class="fa fa-fw" aria-hidden="true" title="Xóa"></i>
+        <span>Xóa</span>
+      </a>
+      <div class="clear"></div>
+    </div>
+  </div>
+</mat-card>
+<!-- end button crud-->
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" class="table-main">
+
+  <!-- Checkbox Column -->
+  <ng-container matColumnDef="select">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+        [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+      </mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+        [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="stt">
+    <th mat-header-cell *matHeaderCellDef>STT</th>
+    <td mat-cell *matCellDef="let element">{{ element.stt }}</td>
+  </ng-container>
+
+  <!-- nguoi su dung -->
+  <ng-container matColumnDef="user">
+    <th mat-header-cell *matHeaderCellDef>Người Sử Dụng</th>
+    <td mat-cell *matCellDef="let element" class="col-user">
+      <p>{{ element.name }}</p>
+      <p>Tên đăng nhập: <span>{{ element.username }}</span></p>
+      <p>Mật khẩu: xxxx</p>
+    </td>
+  </ng-container>
+
+  <!-- phan quyền -->
+  <ng-container matColumnDef="role">
+    <th mat-header-cell *matHeaderCellDef>Phân quyền</th>
+    <td mat-cell *matCellDef="let element" class="permission"><i (click)="openPermission(element)"
+        class="fa fa-fw icon-sort-up" aria-hidden="true" title="Copy to use users"></i></td>
+  </ng-container>
+
+  <!-- duyệt -->
+  <ng-container matColumnDef="approved">
+    <th mat-header-cell *matHeaderCellDef>
+      Duyệt
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <i *ngIf="row.approved == 1" class="fa fa-fw icon-acept" aria-hidden="true" title="Đã Duyệt"></i>
+    </td>
+  </ng-container>
+
+  <!-- sửa -->
+  <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef>
+      Sửa
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <i (click)="onUpdateClick(row)" class="fa fa-fw icon-update" aria-hidden="true" title="Sửa"></i>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="selection.toggle(row)"></tr>
+</table>
+<!-- end table -->
+
+<!-- button crud -->
+<mat-card class="button-system-custom button-system-custom-footer">
+  <div class="row">
+    <div class="col-md-12">
+
+      <!-- add -->
+      <a (click)="onInsertClick()" routerLink="/manager/a4-manager-member" class="button-action add">
+        <i class="fa fa-fw" aria-hidden="true" title="Thêm mới"></i>
+        <span>Thêm mới</span>
+      </a>
+
+      <!-- approved -->
+      <a (click)="onAcceptClick()" routerLink="/manager/a4-manager-member" class="button-action acept">
+        <i class="fa fa-fw" aria-hidden="true" title="Duyệt"></i>
+        <span>Duyệt</span>
+      </a>
+
+      <!-- delete -->
+      <a (click)="onDeleteClick()" routerLink="/manager/a4-manager-member" class="button-action del">
+        <i class="fa fa-fw" aria-hidden="true" title="Xóa"></i>
+        <span>Xóa</span>
+      </a>
+      <div class="clear"></div>
+    </div>
+  </div>
+</mat-card>
+<!-- end button crud-->
+
+<mat-paginator class="mb-20 box-shadow" [pageSizeOptions]="[10, 20, 40, 100]" showFirstLastButtons></mat-paginator>
+
+<!-- thêm mới -->
+<mat-card *ngIf="insertFlag" class="title-block">
+  <div class="row">
+    <div class="col-md-12 title-main">
+      <p>Thêm mới, cập nhật thông tin</p>
+    </div>
+  </div>
+</mat-card>
+
+<!-- card-add-new -->
+<mat-card *ngIf="insertFlag" class="system-custom">
+  <div class="row">
+    <div class="col-md-12">
+      <form [formGroup]="form">
+
+        <!-- website -->
+        <mat-form-field>
+          <mat-label>Website <span class="text-red">* </span></mat-label>
+          <mat-select formControlName="website" [(ngModel)]="sys_member.siteid">
+            <mat-option *ngFor="let website of websiteNotAll" [value]="website.id">
+              {{ website.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <div
+          *ngIf="form.controls['website'].invalid && (form.controls['website'].dirty || form.controls['website'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="form.controls['website'].errors.required">
+            Bắt buộc chọn website
+          </div>
+        </div>
+
+        <!-- người sử dụng -->
+        <mat-form-field class="example-full-width">
+          <mat-label>Người sử dụng <span class="text-red">*</span></mat-label>
+          <input formControlName="user" [(ngModel)]="sys_member.name" matInput placeholder="Người sủ dụng..." />
+        </mat-form-field>
+
+        <div *ngIf="form.controls['user'].invalid && (form.controls['user'].dirty || form.controls['user'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="form.controls['user'].errors.required">
+            Bắt buộc nhập tên người sử dụng
+          </div>        
+          <div *ngIf="form.controls['user'].errors.maxlength">
+            Được nhập tối đa 255 ký tự
+          </div>
+        </div>
+
+        <!-- tên đăng nhập -->
+        <mat-form-field class="example-full-width">
+          <mat-label>Tên Đăng Nhập <span class="text-red">*</span></mat-label>
+          <input formControlName="userName" [(ngModel)]="sys_member.username" matInput placeholder="Tên đăng nhập..." />
+        </mat-form-field>
+
+        <div
+          *ngIf="form.controls['userName'].invalid && (form.controls['userName'].dirty || form.controls['userName'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="form.controls['userName'].errors.required">
+            Bắt buộc nhập tên tên đăng nhập
+          </div>
+          <div *ngIf="form.controls['userName'].errors.maxlength">
+            Được nhập tối đa 50 ký tự
+          </div>
+        </div>
+
+        <!-- mật khẩu -->
+        <mat-form-field class="example-full-width">
+          <mat-label>Mật Khẩu <span class="text-red">*</span></mat-label>
+          <input formControlName="password" type="password" matInput [(ngModel)]="passwordMd5"
+            placeholder="Nhập mật khẩu..." />
+        </mat-form-field>
+
+        <div
+          *ngIf="form.controls['password'].invalid && (form.controls['password'].dirty || form.controls['password'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="form.controls['password'].errors.required">
+            Bắt buộc nhập mật khẩu
+          </div>
+          <div *ngIf="form.controls['password'].errors.maxlength">
+            Được nhập tối đa 50 ký tự
+          </div>
+        </div>
+
+        <!-- nhập lại mật khẩu -->
+        <mat-form-field class="example-full-width">
+          <mat-label>Nhập Lại Mật Khẩu <span class="text-red">*</span></mat-label>
+          <input formControlName="confirmPassword" type="password" [(ngModel)]="confirmPassword" matInput
+            placeholder="Nhập lại mật khẩu..." />
+        </mat-form-field>
+
+        <div
+          *ngIf="form.controls['confirmPassword'].invalid && (form.controls['confirmPassword'].dirty || form.controls['confirmPassword'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="form.controls['confirmPassword'].errors.required">
+            Bắt buộc nhập lại mật khẩu
+          </div>
+          <div *ngIf="form.controls['confirmPassword'].errors.mustMatch">
+            Mật khẩu chưa khớp
+          </div>
+        </div>
+
+        <!-- email -->
+        <mat-form-field class="example-full-width">
+          <mat-label>Email <span class="text-red">*</span></mat-label>
+          <input formControlName="email" type="email" [(ngModel)]="sys_member.email" matInput
+            placeholder="Nhập email..." />
+        </mat-form-field>
+
+        <div *ngIf="form.controls['email'].invalid && (form.controls['email'].dirty || form.controls['email'].touched)"
+          class="alert alert-danger">
+          <div *ngIf="form.controls['email'].errors.required">
+            Bắt buộc nhập email
+          </div>
+          <div *ngIf="form.controls['email'].errors.email">
+            Địa chỉ email không hợp lệ
+          </div>
+          <div *ngIf="form.controls['email'].errors.maxlength">
+            Được nhập tối đa 255 ký tự
+          </div>
+        </div>
+      </form>
+
+      <!-- checkbox -->
+      <mat-checkbox [(ngModel)]="sys_member.approved">Duyệt</mat-checkbox>
+
+      <!-- button update - destroy -->
+      <div class="example-button-row text-center">
+        <button (click)="onSubmitClick()" class="mb-2 mr-2 btn-transition btn btn-primary button-update">Cập nhật
+        </button>
+        <button (click)="onCancelClick()" class="mb-2 mr-2 btn-transition btn btn-primary button-destroy">Hủy bỏ
+        </button>
+      </div>
+
+    </div>
+  </div>
+</mat-card>
+<!--  end card-add-new -->

@@ -1,0 +1,229 @@
+.mat-table {
+  overflow-x: scroll;
+}
+
+.mat-cell,
+.mat-header-cell {
+  word-wrap: initial;
+  display: table-cell;
+  padding: 0px 10px;
+  line-break: unset;
+  white-space: pre-line;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.mat-row,
+.mat-header-row {
+  display: table-row;
+  width: 100%;
+}
+
+@media screen and (max-width: 570px) {
+  .mat-header-cell {
+    white-space: nowrap;
+  }
+  .menu-bottom{
+    display:flex;
+  }
+}
+.example-full-width {
+  width: 100%;
+}
+.mr-20 {
+  margin-right: 20px;
+}
+.title-block {
+  background: #2bbbad;
+  color: #fff;
+  font-size: 18px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  padding-top: 11px;
+  padding-bottom: 11px;
+}
+.title-main {
+  p {
+    margin-bottom: 0px;
+    font-size: 15px;
+  }
+}
+.custom-border {
+  padding: 10px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  margin-right: 15px;
+}
+
+.custom-overflow {
+  // max-height: 350px;
+  overflow-y: auto;
+}
+
+.custom-margin-button {
+  margin-right: 10px;
+}
+
+td,
+th {
+  width: 15%;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.example-button-row button,
+.example-button-row a {
+  margin-right: 8px;
+}
+.system-custom {
+  box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03),
+    0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
+  border-width: 0;
+  transition: all 0.2s;
+  margin-bottom: 20px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+.button-system-custom {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+.button-system-custom-footer {
+  box-shadow: none;
+  border-bottom: 1px solid #e2e2e2;
+}
+.title-header-crud {
+  box-shadow: none;
+}
+.button-system-custom-after {
+  border-radius: 0px;
+}
+.button-filter {
+  padding: 6px 33px;
+  border-color: #2bbbad;
+  color: #2bbbad;
+}
+.button-filter:hover {
+  background: #2bbbad;
+  color: #fff;
+}
+.contain-button-filter {
+  text-align: center;
+}
+.button-action {
+  width: 110px;
+  float: left;
+  text-align: center;
+  @media (max-width: 576px) {
+    width: 103px;
+  }
+  span {
+    font-size: 16px;
+  }
+  i {
+    padding-right: 10px;
+    font-size: 18px;
+  }
+}
+.button-action.add {
+  color: #33b5e5;
+}
+.button-action.acept {
+  color: #00c851;
+}
+.button-action.sort {
+  color: #ffbb33;
+}
+.button-action.del {
+  color: #ff4444;
+}
+.clear {
+  clear: both;
+}
+th {
+  color: #fff;
+  font-size: 15px;
+  letter-spacing: 0.7px;
+}
+
+.mat-header-row {
+  background: #2bbbad !important;
+  text-transform: uppercase;
+  height: 50px;
+}
+
+tr.mat-row:hover {
+  background: #e0f2f1;
+}
+
+.example-form.form-sort {
+  max-width: 65px !important;
+  min-width: 65px !important;
+}
+.icon-acept,
+.icon-sort-up,
+.icon-sort-down {
+  font-size: 18px;
+}
+.icon-acept {
+  color: #00c851;
+}
+.icon-sort-up {
+  color: #ff8800;
+}
+.icon-sort-down {
+  color: #ffbb33;
+}
+.icon-update {
+  font-size: 17px;
+  color: #33b5e5;
+}
+// check
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: #2bbaac !important;
+}
+.mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element,
+.mat-checkbox:active:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element {
+  background: #2bbaac !important;
+}
+.mb-20 {
+  margin-bottom: 20px;
+}
+.box-shadow {
+  box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem 1.40625rem rgba(4, 9, 20, 0.03),
+    0 0.25rem 0.53125rem rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
+}
+.button-system-custom.button-system-custom-footer {
+  box-shadow: -4px 0px 0px 0px #e2e2e285;
+}
+// thêm mới
+.button-update,
+.button-destroy {
+  padding: 6px 33px;
+  border-color: #2bbbad;
+  background: #2bbbad;
+}
+.text-red {
+  color: #ff0000;
+  font-size: 17px;
+}

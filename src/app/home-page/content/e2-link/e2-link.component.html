@@ -1,0 +1,321 @@
+<mat-card class="title-block">
+  <div class="row">
+    <div class="col-md-12 title-main">
+      <p>Liên kết</p>
+    </div>
+  </div>
+</mat-card>
+
+<!-- select-top -->
+<mat-card class="system-custom">
+  <div class="row">
+    <div class="col-md-6">
+
+      <!-- Ngôn ngữ -->
+      <mat-form-field>
+        <mat-label>Ngôn Ngữ:</mat-label>
+        <mat-select [(ngModel)]="languageId">
+          <mat-option *ngFor="let language of languages" [value]="language.value">
+            {{ language.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+
+      <!-- Trạng thái -->
+      <mat-form-field>
+        <mat-label>Trạng Thái:</mat-label>
+        <mat-select [(ngModel)]="statusId">
+          <mat-option *ngFor="let statusItem of status" [value]="statusItem.value">
+            {{ statusItem.viewValue }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+
+      <!-- Website -->
+      <mat-form-field>
+        <mat-label>Website:</mat-label>
+        <mat-select [(ngModel)]="websiteId">
+          <mat-option *ngFor="let website of websites" [value]="website.id">
+            {{ website.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-6">
+      <div class="example-button-row contain-button-filter">
+
+        <!-- Button Lọc -->
+        <button (click)="onFillterClick()" class="mb-2 mr-2 btn-transition btn btn-outline-primary button-filter">Lọc
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-card>
+<!--  end select-top -->
+
+<!-- button crud -->
+<mat-card class="button-system-custom title-header-crud">
+  <div class="row">
+    <div class="col-md-12">
+      <a (click)="onInsertClick()" routerLink="/manager/e2-link" class="button-action add">
+        <i class="fa fa-fw" aria-hidden="true" title="Thêm mới"></i>
+        <span>Thêm mới</span>
+      </a>
+      <a (click)="onAcceptClick()" routerLink="/manager/e2-link" class="button-action acept">
+        <i class="fa fa-fw" aria-hidden="true" title="Duyệt"></i>
+        <span>Duyệt</span>
+      </a>
+      <a (click)="onArrangeClick()" routerLink="/manager/e2-link" class="button-action sort">
+        <i class="fa fa-fw" aria-hidden="true" title="Sắp xếp"></i>
+        <span>Sắp xếp</span>
+      </a>
+      <a (click)="onDeleteClick()" routerLink="/manager/e2-link" class="button-action del">
+        <i class="fa fa-fw" aria-hidden="true" title="Xóa"></i>
+        <span>Xóa</span>
+      </a>
+      <div class="clear"></div>
+    </div>
+  </div>
+</mat-card>
+<!-- end button crud-->
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!-- Checkbox Column -->
+  <ng-container matColumnDef="select">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+        [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+      </mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+        [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+  <!-- STT -->
+  <ng-container matColumnDef="stt">
+    <th mat-header-cell *matHeaderCellDef>STT</th>
+    <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+  </ng-container>
+
+  <!-- hình ảnh -->
+  <ng-container matColumnDef="pathimage">
+    <th mat-header-cell *matHeaderCellDef>Ảnh</th>
+    <td mat-cell *matCellDef="let row" class="col-img"> <img src="http://www.hce.edu.vn{{row.pathimage}}"> </td>
+  </ng-container>
+
+  <!-- tên liên kết -->
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef>Tên Liên kết</th>
+    <td mat-cell *matCellDef="let row">{{ row.title }}</td>
+  </ng-container>
+
+  <!-- duyệt -->
+  <ng-container matColumnDef="approved">
+    <th mat-header-cell *matHeaderCellDef>
+      Duyệt
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <i *ngIf="row.approved==1" class="fa fa-fw icon-acept" aria-hidden="true" title="Đã Duyệt"></i>
+    </td>
+  </ng-container>
+
+  <!-- sắp xếp input-->
+  <ng-container matColumnDef="arrange">
+    <th mat-header-cell *matHeaderCellDef>
+      Sắp Xếp
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <form class="example-form form-sort">
+        <mat-form-field class="example-full-width">
+          <input class="text-center" matInput (focusout)="onFocusoutArrange(row,$event)" [value]="row.arrange"
+            maxlength="11" (keypress)="numberOnly($event)" />
+        </mat-form-field>
+      </form>
+    </td>
+  </ng-container>
+
+  <!-- sửa -->
+  <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef>
+      Sửa
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <i (click)="onUpdateClick(row)" class="fa fa-fw icon-update" aria-hidden="true" title="Sửa"></i>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="selection.toggle(row)"></tr>
+</table>
+<!-- end table -->
+
+<!-- button crud -->
+<mat-card class="button-system-custom button-system-custom-footer">
+  <div class="row">
+    <div class="col-md-12">
+      <a (click)="onInsertClick()" routerLink="/manager/e2-link" class="button-action add">
+        <i class="fa fa-fw" aria-hidden="true" title="Thêm mới"></i>
+        <span>Thêm mới</span>
+      </a>
+      <a (click)="onAcceptClick()" routerLink="/manager/e2-link" class="button-action acept">
+        <i class="fa fa-fw" aria-hidden="true" title="Duyệt"></i>
+        <span>Duyệt</span>
+      </a>
+      <a (click)="onArrangeClick()" routerLink="/manager/e2-link" class="button-action sort">
+        <i class="fa fa-fw" aria-hidden="true" title="Sắp xếp"></i>
+        <span>Sắp xếp</span>
+      </a>
+      <a (click)="onDeleteClick()" routerLink="/manager/e2-link" class="button-action del">
+        <i class="fa fa-fw" aria-hidden="true" title="Xóa"></i>
+        <span>Xóa</span>
+      </a>
+      <div class="clear"></div>
+    </div>
+  </div>
+</mat-card>
+<!-- end button crud-->
+
+<mat-paginator class="mb-20 box-shadow" [pageSizeOptions]="[10, 20, 40, 100]" showFirstLastButtons></mat-paginator>
+
+<!-- thêm mới -->
+<mat-card *ngIf="insertFlag" class="title-block">
+  <div class="row">
+    <div class="col-md-12 title-main">
+      <p>Thêm mới, cập nhật thông tin</p>
+    </div>
+  </div>
+</mat-card>
+
+<!-- card-add-new -->
+<mat-card *ngIf="insertFlag" class="system-custom">
+  <div class="row">
+    <div class="col-md-12">
+
+      <!-- begin form -->
+      <form [formGroup]="form">
+
+        <!-- số thứ tự -->
+        <mat-form-field class="example-full-width">
+          <mat-label>Số Thứ Tự <span class="text-red">*</span></mat-label>
+          <input formControlName="arrange" matInput [(ngModel)]="advertises.arrange" />
+        </mat-form-field>
+        <div
+          *ngIf="form.controls['arrange'].invalid && (form.controls['arrange'].dirty || form.controls['arrange'].touched)"
+          class="alert alert-danger form-custom">
+          <div *ngIf="form.controls['arrange'].errors.required">
+            Bạn phải chọn số thứ tự
+          </div>
+          <div *ngIf="form.controls['arrange'].errors.pattern">
+            Bạn chỉ được nhập số
+          </div>
+          <div *ngIf="form.controls['arrange'].errors.maxlength">
+            Bạn không được nhập quá 11 ký tự
+          </div>
+        </div>
+
+        <!-- ngôn ngữ -->
+        <mat-form-field>
+          <mat-label>Ngôn Ngữ <span class="text-red">*</span></mat-label>
+          <mat-select formControlName="lang" [(ngModel)]="advertises.lang">
+            <mat-option *ngFor="let language of languages" [value]="language.value">
+              {{ language.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- website -->
+        <mat-form-field>
+          <mat-label>Website <span class="text-red">*</span></mat-label>
+          <mat-select formControlName="siteid" [(ngModel)]="advertises.siteid">
+            <mat-option *ngFor="let website of NoAllwebsites" [value]="website.id">
+              {{ website.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- tên liên kết -->
+        <mat-form-field class="example-full-width">
+          <mat-label>Tên liên kết <span class="text-red">*</span></mat-label>
+          <input formControlName="title" [(ngModel)]="advertises.title" matInput placeholder="Nhập liên kết..." />
+        </mat-form-field>
+        <div *ngIf="form.controls['title'].invalid && (form.controls['title'].dirty || form.controls['title'].touched)"
+          class="alert alert-danger form-custom">
+          <div *ngIf="form.controls['title'].errors.required">
+            Bạn phải chọn liên kết
+          </div>
+          <div *ngIf="form.controls['title'].errors.maxlength">
+            Tên liên kết không quá 255 ký tự
+          </div>
+        </div>
+
+        <!-- địa chỉ website -->
+        <mat-form-field class="example-full-width">
+          <mat-label>Địa chỉ website <span class="text-red">*</span></mat-label>
+          <input formControlName="link" [(ngModel)]="advertises.link" matInput placeholder="Nhập địa chỉ..." />
+        </mat-form-field>
+        <div *ngIf="form.controls['link'].invalid && (form.controls['link'].dirty || form.controls['link'].touched)"
+          class="alert alert-danger form-custom">
+          <div *ngIf="form.controls['link'].errors.required">
+            Bạn phải chọn địa chỉ website
+          </div>
+        </div>
+
+        <!-- ảnh -->
+        <mat-form-field class="example-full-width">
+          <mat-label>Ảnh <span class="text-red">*</span></mat-label>
+          <input formControlName="pathimage" matInput [(ngModel)]="advertises.pathimage" />
+        </mat-form-field>
+
+        <!-- open upload file -->      
+        <a onClick="MyWindow=window.open('http://hce.edu.vn/new/UploadFile/uploadfile.php','MyWindow','width=1200,height=600'); return false;"
+          routerLink="/manager/e2-link" class="btn btn-info mr-2 mb-2">         
+          <i class="fas fa-cloud-upload-alt mr-1" title="Chọn tập tin"></i>
+          <span>Chọn tập tin</span>
+        </a>
+        <!-- <a (click)="buttonPaste()" routerLink="/manager/e2-link" class="btn btn-success mb-2"> 
+          <i class="fas fa-paste mr-1"title="Dán Link"></i>
+          <span>Dán Link</span>
+        </a> -->
+        
+        <div
+          *ngIf="form.controls['pathimage'].invalid && (form.controls['pathimage'].dirty || form.controls['pathimage'].touched)"
+          class="alert alert-danger form-custom">
+          <div *ngIf="form.controls['pathimage'].errors.required">
+            Bạn phải chọn ảnh
+          </div>
+        </div>
+
+        <!-- vị trí -->
+        <mat-form-field>
+          <mat-label>Vị trí <span class="text-red">*</span></mat-label>
+          <mat-select formControlName="position" [(ngModel)]="advertises.position">
+            <mat-option *ngFor="let position of positions" [value]="position.id">
+              {{ position.title }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+      <!-- checkbox -->
+
+      <mat-checkbox [(ngModel)]="advertises.approved">Duyệt</mat-checkbox>
+
+      <!-- button update - destroy -->
+      <div class="example-button-row text-center">
+        <button (click)="onSubmitClick()" class="mb-2 mr-2 btn-transition btn btn-primary button-update">Cập nhật
+        </button>
+        <button (click)="onCancelClick()" class="mb-2 mr-2 btn-transition btn btn-primary button-destroy">Hủy bỏ
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-card>
+<!--  end card-add-new -->

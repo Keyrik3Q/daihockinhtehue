@@ -1,0 +1,113 @@
+.dropdown-menu-mobile{
+  position: fixed !important;
+  z-index: 50;
+  left: 42% !important;
+  top: 113px !important;
+  width: 50% !important;
+  transform: translateY(-50%) !important;
+  min-width: 10px !important;
+  box-shadow: 0 0.46875rem 2.1875rem rgba(4,9,20,0.03), 0 0.9375rem 1.40625rem rgba(4,9,20,0.03), 0 0.25rem 0.53125rem rgba(4,9,20,0.05), 0 0.125rem 0.1875rem rgba(4,9,20,0.03);
+  margin: .125rem;
+  font-size: .88rem;
+  color: #495057;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: .25rem;  
+  padding: .65rem 0;
+  animation: fade-in2 0.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  display: block;
+}
+.page-body-wrapper {
+  min-height: calc(100vh - 63px);
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  padding-left: 0;
+  padding-right: 0;
+}
+.mr-20 {
+  margin-right: 20px;
+}
+.page-body-wrapper:not(.auth-page) {
+  padding-top: 63px;
+}
+
+.page-body-wrapper.full-page-wrapper {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.custom-slidebar {
+  z-index: 500;
+  position: relative;
+}
+
+.custom-color {
+  background-color: #fff;
+}
+
+.custom-active {
+  background-color: #0099cc;
+  color: #fff;
+  font-weight: 600;
+  // padding: 1.5px 1px 1px 1px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.custom-active:hover {
+  background-color: #2bbbad;
+  color: #fff;
+  cursor: pointer;
+}
+
+.custom-active:active {
+  color: #fff;
+  background-color: #ff4444;
+}
+
+.custom-active:visited {
+  color: #fff;
+  background-color: #4285f4;
+}
+
+.custom-menu {
+  z-index: 1000 !important;
+  // position: relative;
+}
+
+.navbar.default-layout .navbar-brand-wrapper .navbar-brand img {
+  width: 215px !important;
+  height: 55px !important;
+}
+
+.fix-menu {
+  position: fixed;
+  top: 63px;
+  // z-index: 1000;
+  left: 0;
+  // background-color: #33b5e5;
+  width: 255px;
+  color: white;
+}
+.logo img{
+  width: 50px;
+  height: 50px;
+  margin-left: 60px;
+}
+
+@media only screen and (max-width: 480px){
+  .logo img{
+    margin-left: 0px;
+  }
+}
+
+@media only screen and (max-width: 768px){
+  .logo img{
+    margin-left: 0px;
+  }
+}

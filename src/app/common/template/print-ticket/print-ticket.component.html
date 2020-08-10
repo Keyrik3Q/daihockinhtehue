@@ -1,0 +1,156 @@
+<div style="text-align: center">
+  <h5>
+    CÔNG TY TNHH TMXD & DVVT BIỂN ĐÔNG</h5>
+  <h3>VÉ LÊN TÀU THỦY</h3>
+
+  <h4 class="font-weight-normal text-center text-uppercase">
+    BORDING PASS</h4>
+
+  <ngx-qrcode [qrc-element-type]="elementType" qrc-version="4" [qrc-value]="value">
+  </ngx-qrcode>
+
+  <p>Mã vé {{ticket.id}}</p>
+
+  <p *ngIf="ticket.role==1">Loại khách: Hướng dẫn viên</p>
+  <p *ngIf="ticket.role==2">Loại khách: Giám đốc</p>
+
+  <table style="margin: 0 auto;">
+    <tr>
+      <td>
+        <p>Nơi đi</p>
+      </td>
+      <td>
+        <p>Nơi đến</p>
+      </td>
+    </tr>
+    <!-- row -->
+    <tr *ngIf="trip.type_ticket==0">
+      <td style="text-align: center; margin-left:20px;">
+        <h5 style="text-align: center; margin-left:20px;">CẢNG SA KỲ -</h5>
+      </td>
+      <td style="text-align: center; margin-right:20px;">
+        <h5 style="text-align: center; margin-right:20px;">CẢNG LÝ SƠN</h5>
+      </td>
+    </tr>
+    <!-- row -->
+    <tr *ngIf="trip.type_ticket==1">
+      <td style="text-align: center; margin-left:20px;">
+        <h5 style="text-align: center; margin-left:20px;">CẢNG LÝ SƠN -</h5>
+      </td>
+      <td style="text-align: center; margin-right:20px;">
+        <h5 style="text-align: center; margin-right:20px;">CẢNG SA KỲ</h5>  
+      </td>
+    </tr>
+  </table>
+
+  <table style="margin: 0 auto;">
+    <!-- row -->
+    <tr>
+      <td>
+        <p style="font-weight: 600; padding-left:10px; text-align:left;font-size: 13px">
+          Tàu/Ship</p>
+      </td>
+      <td>
+        <p style="font-size: 13px;font-weight: 600; padding-left:10px; text-align:left;">
+          {{train.name}}</p>
+      </td>
+    </tr>
+    <!-- row -->
+    <tr>
+      <td>
+        <p style="font-size: 13px;font-weight: 600; padding-left:10px; text-align:left;">
+          Ngày đi/Date</p>
+      </td>
+      <td>
+        <p style="font-size: 13px;font-weight: 600; padding-left:10px; text-align:left;">
+          {{ticket.start_date}}</p>
+      </td>
+    </tr>
+    <!-- row -->
+    <tr>
+      <td>
+        <p style="font-size: 13px;font-weight: 600; padding-left:10px; text-align:left;">
+          Giờ đi/From Time</p>
+      </td>
+      <td>
+        <p style="font-size: 13px;font-weight: 600; padding-left:10px; text-align:left;">
+          {{trip.start_time_train}}</p>
+      </td>
+    </tr>
+    <!-- row -->
+    <tr>
+      <td>
+        <p style="font-size: 13px;font-weight: 600; padding-left:10px; text-align:left;">
+          Giờ đến/Dest Time</p>
+      </td>
+      <td>
+        <p style="font-size: 13px;font-weight: 600; padding-left:10px; text-align:left;">
+          {{trip.end_time_train}}</p>
+      </td>
+    </tr>
+    <!-- row -->
+    <tr>
+      <td>
+        <p style="font-size: 13px;font-weight: 600; padding-left:10px; text-align:left;">
+          Chổ ngồi/Seat</p>
+      </td>
+      <td>
+        <p style="font-size: 13px;font-weight: 600; padding-left:10px; text-align:left;">
+          {{ticket.number_seat}}</p>
+      </td>
+    </tr>
+    <!-- row -->
+    <tr>
+      <td>
+        <p style="font-size: 13px;font-weight: 600; padding-left:10px; text-align:left;">
+          Giá vé/Price</p>
+      </td>
+      <td>
+        <p style="font-size: 13px;font-weight: 600; padding-left:10px; text-align:left;">
+          {{ticket.price}}</p>
+      </td>
+    </tr>
+    <!-- row -->
+    <tr>
+      <td>
+        <p style="font-size: 13px;font-weight: 600; padding-left:10px; text-align:left;">
+          Họ tên/Name</p>
+      </td>
+      <td>
+        <p style="font-size: 13px;font-weight: 600; padding-left:10px; text-align:left;">
+          {{user.name}}</p>
+      </td>
+    </tr>
+    <!-- row -->
+    <tr>
+      <td>
+        <p style="font-size: 13px;font-weight: 600; padding-left:10px; text-align:left;">
+          CMND/Passport</p>
+      </td>
+      <td>
+        <p style="font-size: 13px;font-weight: 600; padding-left:10px; text-align:left;">
+          {{user.cmnd}}</p>
+      </td>
+    </tr>
+    <!-- row -->
+    <tr>
+      <td>
+        <p style="font-size: 13px;font-weight: 600; padding-left:10px; text-align:left;">
+          Tuổi/Age</p>
+      </td>
+      <td>
+        <p style="font-size: 13px;font-weight: 600; padding-left:10px; text-align:left;">
+          {{age}}</p>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<hr>
+
+<p style="text-align:center">
+  Ghi chú: Hành khách xuống tàu trước giờ xuất bến 15 phút Thẻ lên Tàu Thủy không phải là hóa đơn GTGT và không có giá trị thanh toán<br><br> Số điện thoại đặt vé : 0977761879 - 02556297999</p>
+<p style="text-align:center">
+  Để tra cứu hóa đơn điện tử vui lòng truy cập website: https://lysontrip.vn/hoadon</p>
+
+<p style="page-break-before: always"></p>

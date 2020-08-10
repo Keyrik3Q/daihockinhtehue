@@ -1,0 +1,174 @@
+<mat-card class="title-block">
+  <div class="row">
+    <div class="col-md-12 title-main">
+      <p>Vùng liên kết</p>
+    </div>
+  </div>
+</mat-card>
+
+<!-- button crud -->
+<mat-card class="button-system-custom title-header-crud">
+  <div class="row">
+    <div class="col-md-12">
+      <a (click)="onInsertClick()" routerLink="/manager/e1-area-link" class="button-action add">
+        <i class="fa fa-fw" aria-hidden="true" title="Thêm mới"></i>
+        <span>Thêm mới</span>
+      </a>
+      <a (click)="onAcceptClick()" routerLink="/manager/e1-area-link" class="button-action acept">
+        <i class="fa fa-fw" aria-hidden="true" title="Duyệt"></i>
+        <span>Duyệt</span>
+      </a>
+      <a (click)="onDeleteClick()" routerLink="/manager/e1-area-link" class="button-action del">
+        <i class="fa fa-fw" aria-hidden="true" title="Xóa"></i>
+        <span>Xóa</span>
+      </a>
+      <div class="clear"></div>
+    </div>
+  </div>
+</mat-card>
+<!-- end button crud-->
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!-- Checkbox Column -->
+  <ng-container matColumnDef="select">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+        [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+      </mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+        [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+  <!-- STT Column -->
+  <ng-container matColumnDef="stt">
+    <th mat-header-cell *matHeaderCellDef>STT</th>
+    <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+  </ng-container>
+
+  <!-- tiêu đề -->
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef>Tiêu Đề</th>
+    <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+  </ng-container>
+
+  <!-- vị trí -->
+  <ng-container matColumnDef="keyword">
+    <th mat-header-cell *matHeaderCellDef>Vị trí</th>
+    <td mat-cell *matCellDef="let element">{{ element.keyword }}</td>
+  </ng-container>
+
+  <!-- duyệt -->
+  <ng-container matColumnDef="approved">
+    <th mat-header-cell *matHeaderCellDef>
+      Duyệt
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <i *ngIf="element.approved==1" class="fa fa-fw icon-acept" aria-hidden="true" title="Đã Duyệt"></i>
+    </td>
+  </ng-container>
+
+  <!-- sửa -->
+  <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef>
+      Sửa
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <i (click)="onUpdateClick(element)" class="fa fa-fw icon-update" aria-hidden="true" title="Sửa"></i>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="selection.toggle(row)"></tr>
+</table>
+<!-- end table -->
+
+<!-- button crud -->
+<mat-card class="button-system-custom title-header-crud">
+  <div class="row">
+    <div class="col-md-12">
+      <a (click)="onInsertClick()" routerLink="/manager/e1-area-link" class="button-action add">
+        <i class="fa fa-fw" aria-hidden="true" title="Thêm mới"></i>
+        <span>Thêm mới</span>
+      </a>
+      <a (click)="onAcceptClick()" routerLink="/manager/e1-area-link" class="button-action acept">
+        <i class="fa fa-fw" aria-hidden="true" title="Duyệt"></i>
+        <span>Duyệt</span>
+      </a>
+      <a (click)="onDeleteClick()" routerLink="/manager/e1-area-link" class="button-action del">
+        <i class="fa fa-fw" aria-hidden="true" title="Xóa"></i>
+        <span>Xóa</span>
+      </a>
+      <div class="clear"></div>
+    </div>
+  </div>
+</mat-card>
+<!-- end button crud-->
+
+<mat-paginator class="mb-20 box-shadow" [pageSizeOptions]="[10, 20, 40, 100]" showFirstLastButtons></mat-paginator>
+
+<!-- thêm mới -->
+<mat-card *ngIf="insertFlag" class="title-block">
+  <div class="row">
+    <div class="col-md-12 title-main">
+      <p>Thêm mới, cập nhật thông tin</p>
+    </div>
+  </div>
+</mat-card>
+
+<!-- card-add-new -->
+<mat-card *ngIf="insertFlag" class="system-custom">
+  <div class="row">
+    <div class="col-md-12">
+
+      <!-- begin form -->
+      <form [formGroup]="form">
+        <!-- tiêu đề -->
+        <mat-form-field class="example-full-width">
+          <mat-label>Tiêu đề <span class="text-red">*</span></mat-label>
+          <input formControlName="title" [(ngModel)]="advertises_type.title" matInput placeholder="Nhập tiêu đề..." />
+        </mat-form-field>
+        <div *ngIf="form.controls['title'].invalid && (form.controls['title'].dirty || form.controls['title'].touched)"
+          class="alert alert-danger form-custom">
+          <div *ngIf="form.controls['title'].errors.required">
+            Bạn phải nhập tiêu đề
+          </div>
+          <div *ngIf="form.controls['title'].errors.maxlength">
+            Tiêu đề không quá 255 ký tự
+          </div>
+        </div>
+
+        <!-- keyword -->
+        <mat-form-field class="example-full-width">
+          <mat-label>Keyword <span class="text-red">*</span></mat-label>
+          <input formControlName="keyword" [(ngModel)]="advertises_type.keyword" matInput
+            placeholder="Nhập keyword..." />
+        </mat-form-field>
+      </form>
+      <div
+        *ngIf="form.controls['keyword'].invalid && (form.controls['keyword'].dirty || form.controls['keyword'].touched)"
+        class="alert alert-danger form-custom">
+        <div *ngIf="form.controls['keyword'].errors.required">
+          Bạn phải nhập keyword
+        </div>
+        <div *ngIf="form.controls['keyword'].errors.maxlength">
+          Tiêu đề không quá 255 ký tự
+        </div>
+      </div>
+
+      <!-- checkbox -->
+      <mat-checkbox [(ngModel)]="advertises_type.approved">Duyệt</mat-checkbox>
+
+      <!-- button update - destroy -->
+      <div class="example-button-row text-center">
+        <button (click)="onSubmitClick()" class="mb-2 mr-2 btn-transition btn btn-primary button-update">Cập nhật
+        </button>
+        <button (click)="onCancelClick()" class="mb-2 mr-2 btn-transition btn btn-primary button-destroy">Hủy bỏ
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-card>
